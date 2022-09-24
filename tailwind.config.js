@@ -10,6 +10,7 @@ module.exports = {
     extend: {},
   },theme: {
     extend: {
+      //use prigmary, secondary...
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
