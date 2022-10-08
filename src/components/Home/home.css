@@ -1,5 +1,6 @@
 .imgLogo{
-    content: url("../../..//public/resources/images/landingPage.jpg");
+    /* content: url("../../../public/resources/images/landingPage.jpg"); */
+    content: url("../../../public/resources/images/landingPage.jpg");
 
 }
 .img404{

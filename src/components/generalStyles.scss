@@ -1,0 +1,79 @@
+@import "animationsStyles.scss";
+$primary: #111;
+$secondary: rgb(238, 224, 224);
+$highligh: rgb(216, 91, 235);
+$background-card: #242424;
+
+.card-team {
+    padding: auto;
+    gap: 2rem;
+    background-color: $primary;
+    width: 40rem;
+    margin-top: 4rem !important;
+    height: 15rem;
+    border-radius: 1.5rem;
+    display: flex;
+    margin: auto;
+    color: $secondary;
+    align-self: center;
+    box-shadow: 10px 10px;
+    animation-duration: 4s;
+    animation-name: appear;
+    animation-iteration-count: inherit;
+}
+
+.card-footer-media-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+}
+
+
+.avatar-team {
+    border-radius: 1.5rem;
+    content: url("../..//public/resources/images/404.jpg");
+
+}
+
+
+.avatar-team:hover {
+    border-radius: 1.5rem;
+    content: url("../..//public/resources/images/404.jpg");
+}
+
+.toolbar-logo{
+    content: url("../..//public/resources/images/cat-logo.jpg");
+
+}
+
+.github-logo {
+    font-size: 3rem;
+
+    cursor: pointer;
+
+    &:hover {
+        transition: all;
+        transition-duration: 300ms;
+    }
+}
+
+
+.team-name {
+    font-size: 1rem;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+
+}
+
+.team-description {
+    text-align: justify;
+    padding: 1rem;
+
+}
+
+.card-footer-social-media p {
+    color: $highligh;
+    font-weight: 700;
+}

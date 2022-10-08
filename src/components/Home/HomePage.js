@@ -27,15 +27,13 @@ export const HomePage = () => {
                                     className="transition ease-in-out delay-150  flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-900 md:py-4 md:px-10 md:text-lg"
                                     to={"/principal"}>Ingresa al sitio</Link>
                             </div>
-
                         </div>
-
                     </div>
 
                     <div className="shrink-0">
 
-                        <img className="h-60 w-full imgLogo object-cover sm:h-72 md:h-96 lg:h-full lg:w-full" alt={mainPageImageAlt} />
-
+                        <img className="h-60 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full imgLogo" alt={mainPageImageAlt} />
+ 
                     </div>
                 </div>
             
