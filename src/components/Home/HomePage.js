@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { mainPageImageAlt } from "../../utils/textForImages";
 
 export const HomePage = () => {
-
     return (
         <>
 

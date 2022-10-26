@@ -7,6 +7,7 @@ import { Team } from './components/Home/Team';
 import { Toolbar } from './components/HomePage/ToolBar';
 import './components/Home/home.css'
 import { Principal } from './components/Home/Pirincipal';
+import { Login } from './components/Login/Login';
 
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<SideBar/>} /> */}
         <Route path="/" element={<HomePage/>} />
+        <Route path="/login" element={<Login/>} />
         <Route path="/home" element={<HomePage/>} />
          <Route path="/contact-us" element={<ContactUs/>} /> 
         <Route path="/principal" element={<Principal/>} />

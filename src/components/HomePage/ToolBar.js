@@ -1,109 +1,119 @@
-import { Popover, Transition } from "@headlessui/react"
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { Link, useMatch, useResolvedPath } from "react-router-dom"
 import { useNavigate } from "react-router-dom/dist"
+import { catLogoToolBar } from "../../utils/textForImages"
+import '../generalStyles.scss'
+import { Menu } from 'antd';
+import { BiMenuAltRight } from 'react-icons/bi';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+
 const navigation = [
-    { name: 'Proyectos', href: '/projects' },
     { name: 'Equipo de trabajo', href: '/team' },
     { name: 'Contacto', href: '/contact-us' },
 ]
 export const Toolbar = (props) => {
+    const href = window.location.pathname
     const navigate = useNavigate()
-    const onChangeView = () => {
-        console.log('on change view')
-        navigate("principal", {replace:true})
+    const [resolvePath, setResolvePath] = useState(useResolvedPath(href));
+    const onChangeView = (newDestination) => {
+        navigate(newDestination, { replace: true })
     }
 
+    const isActive = useMatch({ path: resolvePath.pathname, end: true })
+    const resolvePath2 = useResolvedPath(href)
+    useEffect(() => {
+        setResolvePath(resolvePath2);
+        return () => {
 
+        };
+    }, [resolvePath2])
+    const [current, setCurrent] = useState('principal-menu');
+    const onClick = (e) => {
+        console.log('click ', e);
+        setCurrent(e.key);
+        onChangeView(e.key)
+
+    }
+    const items = [{
+        label: '',
+        key: 'principal-menu',
+        icon: <BiMenuAltRight />,
+        children: [
+            {
+                type: 'group',
+                label: 'Proyectos ventas',
+                icon: <AiOutlineShoppingCart />,
+                children: [
+                    {
+                        label: 'standard purshage',
+                        key: '/buy-me',
+                    },
+                    {
+                        label: 'exchange app',
+                        key: 'change-for',
+                    },
+                ],
+            },
+            {
+                type: 'group',
+                label: 'blogs y chats',
+                children: [
+                    {
+                        label: 'forum',
+                        key: '/foro',
+                    },
+                    {
+                        label: 'chats',
+                        key: '/who-are-you',
+                    },
+                ],
+            },
+            {
+                key:'login',
+                label: 'Sign In'
+            },{
+                key:'sign-up',
+                label: 'Sign Up'
+            },
+            {
+                key:'team',
+                label: 'Nosotros'
+            },
+            
+        ],
+    }]
 
     return (
         <>
-            <Popover
+            {resolvePath?.pathname != "/" && (
+                <nav className="menu-projects" aria-label="Global">
+                    <div className="toolbar-logo-container flex w-full items-center justify-between md:w-auto">
+                        <Link to={'/principal'}>
+                            <img
+                                alt={catLogoToolBar}
+                                className="h-8 w-auto sm:h-10 toolbar-logo"
+                            />
+                        </Link>
+                    </div>
+                    <p className="toolbar-p-title">Your Zone</p>
 
-            >
-                <div className="relative flex items-centerjustify-between px-4 pt-6 sm:px-6 lg:px-8">
-                    <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
-                        <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
-                            <div className="flex w-full items-center justify-between md:w-auto">
-                                <Link to={'/principal'}>
-                                    <span className="sr-only">Your Company</span>
-                                    <img
-                                        alt="Your Company"
-                                        className="h-8 w-auto sm:h-10 toolbar-logo"
-                                    />
-                                </Link>
-                                <div className="-mr-2 flex items-center md:hidden">
-                                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                                        <span className="sr-only">Open main menu</span>
-                                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                                    </Popover.Button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="hidden md:ml-10 md:block md:space-x-8 md:pr-4">
-                            {navigation.map((item) => (
-                                <Link key={item.name} to={item.href} className="font-medium text-gray-500  border-b-4 border-transparent hover:text-blue-500 hover:border-current">
-                                    {item.name}
-                                </Link>
-                            ))}
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                Log in
-                            </a>
-                        </div>
-                    </nav>
-                </div>
+                    <Menu
+                    className="menu-parent"
+                        onClick={(e) => onClick(e)}
+                        selectedKeys={[current]}
+                        mode="horizontal"
+                        items={items} />
 
-                <Transition
-                    as={Fragment}
-                    enter="duration-150 ease-out"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="duration-100 ease-in"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                >
-                    <Popover.Panel
-                        focus
-                        className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition md:hidden"
-                    >
-                        <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
-                            <div className="flex items-center justify-between px-5 pt-4">
-                                <div>
-                                    <img
-                                        className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="-mr-2">
-                                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                                        <span className="sr-only">Close main menu</span>
-                                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                                    </Popover.Button>
-                                </div>
-                            </div>
-                            <div className="space-y-1 px-2 pt-2 pb-3">
-                                {navigation.map((item) => (
-                                    <CustomLink
-                                        key={item.name}
-                                        href={item.href}
-                                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-fuchsia-600 hover:text-blue-600"
-                                    >
-                                        {item.name}
-                                    </CustomLink>
-                                ))}
-                            </div>
-                            <a
-                                href="#"
-                                className="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-indigo-600 hover:bg-gray-100"
-                            >
-                                Log in
-                            </a>
-                        </div>
-                    </Popover.Panel>
-                </Transition>
-            </Popover>
+                    {/* {navigation.map((item) => (
+                    <Link key={item.name} to={item.href} className="toolbar-button-menu">
+                        {item.name}
+                    </Link>
+                ))} */}
+                    {/* <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                        Log in
+                    </a> */}
+                </nav>)}
+
             {props.children}
         </>
 
@@ -185,3 +195,4 @@ const CustomMenu = () => {
     </details>
 
 }
+
